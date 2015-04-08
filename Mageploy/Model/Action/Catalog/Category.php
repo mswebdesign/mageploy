@@ -128,7 +128,12 @@ class PugMoRe_Mageploy_Model_Action_Catalog_Category extends PugMoRe_Mageploy_Mo
             $params['parent'] = $parentUuid;
 
             // Associated Products
-            $associatedProductIds = explode('&', $params['category_products']);
+            if (array_key_exists('category_products', $params)) {
+                $associatedProductIds = explode('&', $params['category_products']);
+            } else {
+                $associatedProductIds = array();
+            }
+
             $associatedProductUuids = array();
             foreach ($associatedProductIds as $i => $association) {
                 list($id, $position) = explode('=', $association);
